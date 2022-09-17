@@ -8,7 +8,7 @@ const SignIn = ({ redirectUrl }) => {
   const router = useRouter();
 
   const signIn = () => {
-    const clientId = `client_id=${process.env.NEXT_PUBLIC_OPENQ_ID}`;
+    const clientId = `client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}`;
     const nonce = randomString(10);
     window.localStorage.setItem('csrf_nonce', nonce);
     const state = {
