@@ -4,10 +4,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { ethers } from 'ethers';
 import '../styles/globals.css';
 import ConnectButton from "../components/WalletConnect/ConnectButton";
-import { Web3ReactProvider } from "@web3-react/core";
-import "../styles/globals.css";
 import StoreProvider from "../store/Store/StoreProvider";
-import { ethers } from "ethers";
 import Navigation from "../components/Navigation";
 
 export default function App({ Component }) {
