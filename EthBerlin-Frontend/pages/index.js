@@ -18,7 +18,7 @@ export default function Home() {
         <ConnectButton />
       </header>
       <main className="flex justify-center">
-        <div className="flex flex-wrap items-center p-4 max-w-[1200px]">
+        <div className="flex flex-wrap justify-center p-4 max-w-[1200px]">
           {vidArr.map((video) => {
             return (
               <div key={video} className='flex p-4'>
