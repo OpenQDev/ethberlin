@@ -1,11 +1,9 @@
 import Head from "next/head";
+import ethers from 'ethers';
 import Image from "next/image";
 import { Web3ReactProvider } from '@web3-react/core';
 import ConnectButton from "../components/WalletConnect/ConnectButton";
-<<<<<<< HEAD
-=======
 import "../styles/globals.css";
->>>>>>> b8864f5cafa4e6346c5bd7135e0f7c1130a58120
 import StoreProvider from "../store/Store/StoreProvider";
 import Navigation from "../components/Navigation";
 

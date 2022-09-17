@@ -23,12 +23,12 @@ const PR = ({ pullRequestId }) => {
 	if (foo) {
 		return (
 			<>
-				<h2>Pull Request</h2>
-				<a target="_blank" href={foo.prUrl}>{foo.prUrl}</a>
 				<h2>Issue Title</h2>
 				<h2>{foo.issueTitle}</h2>
 				<h2>Issue Url</h2>
 				<a target="_blank" href={foo.issueUrl}>{foo.issueUrl}</a>
+				<h2>Pull Request</h2>
+				<a target="_blank" href={foo.prUrl}>{foo.prUrl}</a>
 			</>
 		);
 	} else {
