@@ -9,6 +9,7 @@ module.exports = {
         "dark-mode": "#0D1117",
         "overlay": "#000000dd",
         "muted": "rgb(139, 148, 158)",
+        "nav-bg": "#161B22"
       },
     },
   },

@@ -4,7 +4,7 @@ import ConnectButton from "../components/WalletConnect/ConnectButton";
 
 const Navigation = () => {
   return (
-    <header className="flex justify-between p-2 bg-[#171a1e]">
+    <header className="flex justify-between p-2 bg-nav-bg">
       <div className="flex gap-4 items-center">
         <div>QVid</div>
         <input
