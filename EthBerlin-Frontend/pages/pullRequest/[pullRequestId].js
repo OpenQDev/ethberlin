@@ -4,7 +4,6 @@ import VideoPlayer from "../../components/VideoPlayer";
 import PR from "../../components/PR";
 import { useRouter } from 'next/router';
 import { useState, useContext, useEffect } from "react";
-import axios from "axios";
 import StoreContext from "../../store/Store/StoreContext";
 
 export default function Upload() {

@@ -9,7 +9,6 @@ import ConnectModal from './ConnectModal';
 import useEns from '../../hooks/useENS';
 import useIsOnCorrectNetwork from '../../hooks/useIsOnCorrectNetwork';
 import StoreContext from '../../store/Store/StoreContext';
-// import axios from 'axios';
 
 const ConnectButton = () => {
   // Context
