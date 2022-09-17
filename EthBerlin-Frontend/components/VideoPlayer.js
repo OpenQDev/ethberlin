@@ -5,7 +5,7 @@ import Hls from 'hls.js';
 // Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
 // Thanks Steve!
 
-const VideoPlayer = () => {
+const VideoPlayer = ({ cid }) => {
 	const [hls, setHls] = useState(null);
 
 	useEffect(() => {
@@ -18,11 +18,14 @@ const VideoPlayer = () => {
 	}, []);
 
 	useEffect(() => {
-		var hlsFoo = new Hls();
-		hlsFoo.loadSource("https://pinnie.mypinata.cloud/ipfs/QmVzQdLztGgzvvYatzCpgubqM3VZPyGa6xbzieAyFNRGcY?stream=true&mode=hls");
-		hlsFoo.attachMedia(document.getElementById("cover-video"));
-		setHls(hlsFoo);
-	}, []);
+		console.log('cid', cid);
+		if (cid) {
+			var hlsFoo = new Hls();
+			hlsFoo.loadSource(`https://pinnie.mypinata.cloud/ipfs/${cid}?stream=true&mode=hls`);
+			hlsFoo.attachMedia(document.getElementById("cover-video"));
+			setHls(hlsFoo);
+		}
+	}, [cid]);
 
 	return (
 		<>
