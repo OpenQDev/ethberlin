@@ -54,7 +54,7 @@ const UploadFile = ({ pullRequestId }) => {
   };
 
   return (
-    <div className="flex flex-col gap-8 justify-center items-center bg-nav-bg border border-gray-700 w-1/2 h-1/2">
+    <div className="flex flex-col gap-8 justify-center items-center bg-nav-bg border rounded-sm border-gray-700 w-1/2 h-1/2">
       <label className="form-label text-lg">Choose File</label>
       <input className="input-field btn-default flex p-2 border" type="file" onChange={changeHandler} />
       <button className="btn-primary px-12 py-1" onClick={handleSubmission}>Submit</button>
