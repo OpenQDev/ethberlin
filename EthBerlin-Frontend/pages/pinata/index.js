@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import StepProgress from './StepProgress';
 import UploadWizard from './UploadWizard';
-import { handleFileValidations } from '../../../helpers/validations';
+
 import { setAlert } from '../../../store/alert/alert.actions';
 import { handleUpload } from './pin.actions';
 import { connect } from 'react-redux';
