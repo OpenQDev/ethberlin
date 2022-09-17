@@ -24,16 +24,18 @@ class PinataService {
 	async fetchVideo(pullRequestId) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				var config = {
-					method: 'get',
-					url: `https://api.pinata.cloud/data/pinList?metadata[keyvalues]={"pullRequestId":{"value":${pullRequestId}, "op": "eq"}}`,
+				const res = await axios.get(`https://api.pinata.cloud/data/pinList?metadata[keyvalues]={"pullRequestId":{"value":"${pullRequestId}", "op": "eq"}}`, {
+					maxBodyLength: "Infinity",
 					headers: {
-						'Authorization': `Bearer ${process.env.NEXT_PUBLIC_JWT}`
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
 					}
-				};
+				});
 
-				const res = await axios(config);
-				resolve(res);
+				if (res.data.count == 0) {
+					resolve(null);
+				} else {
+					resolve(res.data.rows[0].ipfs_pin_hash);
+				}
 			} catch (error) {
 				console.log(error);
 				reject(error);

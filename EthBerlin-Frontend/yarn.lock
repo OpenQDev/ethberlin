@@ -2910,6 +2910,11 @@ hash.js@1.1.7, hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hls.js@1.2.4-0.canary.8610:
+  version "1.2.4-0.canary.8610"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.2.4-0.canary.8610.tgz#4641a0b1b56ec44c33800a797bb90b3944514da8"
+  integrity sha512-4DBUK7Y3U6pQ38Wn4eF5cpc74wBZw1w+7zhNm1sI4BQ/QJh9baJvT318pmN/zk/tWATu9y/m8r7y8II1H6jGTA==
+
 hmac-drbg@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import StoreContext from "../../store/Store/StoreContext";
 
@@ -14,6 +14,22 @@ const UploadFile = ({ pullRequestId }) => {
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+
+  useEffect(() => {
+    async function check() {
+      try {
+        const res = await appState.pinataService.fetchVideo(pullRequestId);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (pullRequestId) {
+      check();
+    }
+  }, [pullRequestId]);
+
 
   const handleSubmission = async () => {
 
