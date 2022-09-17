@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
+    "@metamask/jazzicon": "^2.0.0",
+    "@w3u/useweb3": "^0.1.7",
+    "@web3-react/core": "^6.1.9",
     "apollo-link-http": "^1.5.17",
+    "axios": "^0.27.2",
     "cross-fetch": "^3.1.5",
     "graphql": "^16.6.0",
     "jazzicon": "^1.5.0",
