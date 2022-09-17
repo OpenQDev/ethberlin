@@ -1,7 +1,9 @@
 module.exports = () => {
   const env = {
     NEXT_PUBLIC_PAT: process.env.PAT,
-    NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV
+    NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV,
+    NEXT_PUBLIC_CLIENT_ID: process.env.CLIENT_ID,
+    NEXT_PUBLIC_CLIENT_SECRET: process.env.CLIENT_SECRET
   };
 
   const config = {

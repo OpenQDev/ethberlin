@@ -18,26 +18,9 @@ function GitHubAuth() {
   const exchangeAuthCodeForAccessToken = (authCode) => {
     appState.authService
       .getAccessToken(authCode)
-      .then(() => {
-        // Retrieve csrf_nonce from local storage
-        const nonce = window.localStorage.getItem('csrf_nonce');
-
-        // Retrieve state param from URL
-        const params = new URLSearchParams(window.location.search);
-        const state = params.get('state');
-
-        // JSON Parse state and lookup with csrf_token
-        let parsedState = JSON.parse(state);
-        let redirectObject = parsedState[nonce];
-
-        if (redirectObject) {
-          // If the nonce is present in the parsed state, that is good
-          let redirectUrl = redirectObject.redirectUrl;
-          router.push(redirectUrl);
-        } else {
-          // If not, you may be under a CSRF attack
-          alert('CSRF Alert!');
-        }
+      .then((accessToken) => {
+        window.localStorage.setItem('access_token', accessToken);
+        router.push('http://localhost:3000');
       })
       .catch((error) => {
         console.log(error);

@@ -7,9 +7,9 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const auth = await axios.post('https://github.com/login/oauth/access_token', {
-					client_id,
-					client_secret,
-					code
+					client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+					client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+					code: authCode
 				}, {
 					headers: {
 						Accept: 'application/json'
