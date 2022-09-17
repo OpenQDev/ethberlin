@@ -30,7 +30,7 @@ const ConnectButton = ({ }) => {
   const buttonRef = useRef();
 
   // Hooks
-  useConnectOnLoad()(); // See [useEagerConnect](../../hooks/useEagerConnect.js)
+  // useConnectOnLoad()(); // See [useEagerConnect](../../hooks/useEagerConnect.js)
 
   useEffect(() => {
     async function check() {
