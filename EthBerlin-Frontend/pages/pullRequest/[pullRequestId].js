@@ -1,3 +1,4 @@
+import Head from "next/head";
 import UploadFile from "../../components/UploadFile/UploadFile";
 import VideoPlayer from "../../components/VideoPlayer";
 import PR from "../../components/PR";
@@ -39,19 +40,10 @@ export default function Upload() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main>
-				<div>
-					<ConnectButton />
-				</div>
-				<h1>VidQ</h1>
-				<div></div>
-				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
-				<PR pullRequestId={pullRequestId} />
-			</main>
 			<div className="flex flex-col items-center p-8">
 				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
 				<div className="flex w-[960px]">
-					Some great info about this Pull Request.
+					<PR pullRequestId={pullRequestId} />
 				</div>
 			</div>
 		</div>
