@@ -53,6 +53,7 @@ const ConnectButton = () => {
         console.log("handle", handle);
         setIsLensVerified(true);
         setLensHandle(handle.data.profiles.items[0].handle);
+        dispatch({ type: 'LENS_HANDLE', payload: handle.data.profiles.items[0].handle });
       }
     }
 

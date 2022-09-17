@@ -11,6 +11,7 @@ export default function Upload() {
   const { pullRequestId } = router.query;
 
   const [appState, dispatch] = useContext(StoreContext);
+  console.log('appState.lensHandle', appState.lensHandle);
   const [cid, setCid] = useState(null);
 
   useEffect(() => {
