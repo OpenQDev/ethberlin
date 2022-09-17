@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import StoreContext from "../../store/Store/StoreContext";
-import ConnectButton from "../../components/WalletConnect/ConnectButton";
 
 export default function Upload() {
 	const router = useRouter();
