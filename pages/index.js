@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css';
 import AuthButton from '../components/Authentication/AuthButton';
 
 export default function Home() {
-  console.log('HOME');
   return (
     <div className={styles.container}>
       <Head>

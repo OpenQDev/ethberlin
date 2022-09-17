@@ -18,8 +18,8 @@ function GitHubAuth() {
   const exchangeAuthCodeForAccessToken = (authCode) => {
     appState.authService
       .getAccessToken(authCode)
-      .then((accessToken) => {
-        window.localStorage.setItem('access_token', accessToken);
+      .then((access_code) => {
+        window.localStorage.setItem('access_code', access_code);
         router.push('http://localhost:3000');
       })
       .catch((error) => {

@@ -4,18 +4,11 @@ class AuthService {
 	constructor() { }
 
 	async getAccessToken(authCode) {
+		const url = `${process.env.NEXT_PUBLIC_AUTH_URL}/?app=ethberlin&code=${authCode}`;
 		return new Promise(async (resolve, reject) => {
 			try {
-				const auth = await axios.post('https://github.com/login/oauth/access_token', {
-					client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-					client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-					code: authCode
-				}, {
-					headers: {
-						Accept: 'application/json'
-					}
-				});
-				console.log(auth);
+				const response = await axios.get(url, { withCredentials: true });
+				resolve(response);
 			} catch (error) {
 				reject(error);
 			}
