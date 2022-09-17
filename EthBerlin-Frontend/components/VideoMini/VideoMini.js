@@ -1,11 +1,27 @@
-import React from "react";
+import { useState, useContext, useEffect } from "react";
+import Hls from 'hls.js';
 
-const VideoMini = ({source, poster}) => {
+const VideoMini = ({ cid }) => {
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src = "https://unpkg.com/hls.js/dist/hls.min.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    console.log('cid', cid);
+    if (cid) {
+      var hlsFoo = new Hls();
+      hlsFoo.loadSource(`https://openqethberlin.mypinata.cloud/ipfs/${cid}?stream=true&mode=hls`);
+      hlsFoo.attachMedia(document.getElementById(`cover-video-${cid}`));
+    }
+  }, [cid]);
+
   return (
-    <video width="320" height="240" poster={poster} controls>
-      <source src={source} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <video playsInline muted false width="320" height="240" id={`cover-video-${cid}`}></video>
   );
 };
 

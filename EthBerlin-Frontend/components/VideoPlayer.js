@@ -1,9 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import Hls from 'hls.js';
 
-// Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
-// Thanks Steve!
-
 const VideoPlayer = ({ cid }) => {
 
 	useEffect(() => {
