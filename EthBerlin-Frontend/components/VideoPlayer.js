@@ -6,7 +6,6 @@ import Hls from 'hls.js';
 // Thanks Steve!
 
 const VideoPlayer = ({ cid }) => {
-	const [hls, setHls] = useState(null);
 
 	useEffect(() => {
 		const script = document.createElement("script");
@@ -21,9 +20,8 @@ const VideoPlayer = ({ cid }) => {
 		console.log('cid', cid);
 		if (cid) {
 			var hlsFoo = new Hls();
-			hlsFoo.loadSource(`https://pinnie.mypinata.cloud/ipfs/${cid}?stream=true&mode=hls`);
+			hlsFoo.loadSource(`https://openqethberlin.mypinata.cloud/ipfs/${cid}?stream=true&mode=hls`);
 			hlsFoo.attachMedia(document.getElementById("cover-video"));
-			setHls(hlsFoo);
 		}
 	}, [cid]);
 
