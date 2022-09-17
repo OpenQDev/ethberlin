@@ -13,7 +13,7 @@ import StoreContext from '../../store/Store/StoreContext';
 const ConnectButton = () => {
   // Context
   const { chainId, error, account, deactivate, safe } = useWeb3();
-  console.log(account);
+ /*  console.log(account); */
   const [appState, dispatch] = useContext(StoreContext);
   const { walletConnectModal } = appState;
 
@@ -24,6 +24,8 @@ const ConnectButton = () => {
     error: error,
     account: account,
   });
+  const [isLensVerified, setIsLensVerified] = useState(false);
+  const [isAccountVerified, setIsAccountVerified] = useState(false);
   const [showModal, setShowModal] = useState();
   const iconWrapper = useRef();
   const modalRef = useRef();
@@ -72,6 +74,17 @@ const ConnectButton = () => {
     dispatch(payload);
   };
 
+  const connectLens = async () => {
+    const message = await appState.lensClient.signMessage(account)
+    const address = appState.lensClient.ecdsaRecover(message);
+    console.log("account: ", account);
+    console.log("address: ", address);
+    let isVerified = account.toLowerCase() === address.toLowerCase();
+    setIsAccountVerified(isVerified);
+    console.log("isAccountVerified", isAccountVerified);
+  }
+
+
   const addOrSwitchNetwork = () => {
     window.ethereum
       .request({
@@ -84,7 +97,7 @@ const ConnectButton = () => {
   // Render
   return (
     <div>
-      {account && isOnCorrectNetwork ? (
+      { account && isOnCorrectNetwork && isLensVerified ? (
         <div>
           <button
             disabled={isConnecting}
@@ -112,7 +125,10 @@ const ConnectButton = () => {
             </span>
           </button>
         </div>
-      ) : isOnCorrectNetwork ? (
+      ) : account && isOnCorrectNetwork && !isLensVerified ? (
+        <button onClick={connectLens} className="flex items-center btn-default mr-4 hover:border-[#8b949e] hover:bg-[#30363d]"> Connect Lens </button>
+      )
+      : isOnCorrectNetwork ? (
         <div>
           <button
             onClick={openConnectModal}

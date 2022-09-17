@@ -28,6 +28,32 @@ class LensClient {
 			}
 		});
 	}
+
+	signMessage = async (account) => {
+		const message = 'OpenQ';
+		const signature = await window.ethereum.request({
+		  method: 'personal_sign',
+		  params: [message, account],
+		});
+		return signature;
+	  };
+
+	ecdsaRecover = (signature) => {
+	let message = 'OpenQ';
+		try {
+			const recoveredAddress = ethers.utils.verifyMessage(message, signature);
+			return recoveredAddress;
+		} catch (err) {
+			return false;
+		}
+	}
+
+	compareAddress = (addr1, addr2) => {
+	console.log("adr1". addr1);
+	console.log("adr2", addr2);
+	return addr1.toLowerCase() === addr2.toLowerCase();
+	};
+
 }
 
 export default LensClient;

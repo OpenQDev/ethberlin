@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect, useContext } from 'react';
-import { client, getProfiles } from '../../api';
+import { client, getProfiles, getWalletProfile } from '../../api';
 import { ethers } from 'ethers';
 import useWeb3 from '../../hooks/useWeb3';
 import StoreContext from "../../store/Store/StoreContext";
@@ -10,12 +10,14 @@ export default function Profile() {
   const [appState] = useContext(StoreContext);
   const { id } = router.query;
   const [profile, setProfile] = useState();
+  const [verifiedLensProfile, setVerifiedLensProfile] = useState();
 
   const { chainId, error, account, library, deactivate, safe } = useWeb3();
 
   useEffect(() => {
     if (id) {
       fetchProfile();
+      fetchLensHandle();
     }
   }, [id]);
 
@@ -24,7 +26,20 @@ export default function Profile() {
     try {
       const response = await client.query(getProfiles, { id }).toPromise();
       setProfile(response.data.profiles.items[0]);
-      console.log('response', profile);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function fetchLensHandle() {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts"
+    })
+    const address = accounts[0]
+    console.log("waller found: ", address);
+    try {
+      const response = await client.query(getWalletProfile, { address }).toPromise();
+      setVerifiedLensProfile(response.data.profiles.items[0].name);
     } catch (err) {
       console.log(err);
     }
