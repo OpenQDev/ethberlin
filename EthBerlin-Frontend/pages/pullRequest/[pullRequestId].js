@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import UploadFile from "../../components/UploadFile/UploadFile";
 import VideoPlayer from "../../components/VideoPlayer";
 import PR from "../../components/PR";
@@ -50,6 +48,12 @@ export default function Upload() {
 				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
 				<PR pullRequestId={pullRequestId} />
 			</main>
+			<div className="flex flex-col items-center p-8">
+				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
+				<div className="flex w-[960px]">
+					Some great info about this Pull Request.
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -33,7 +33,7 @@ const ConnectModal = ({ closeModal }) => {
           </div>
           <h2 className='text-3xl'>Connect Wallet</h2>
           <p className='text-sm'>
-            Connect your wallet to continue with OpenQ. By connecting your wallet you agree with OpenQ{"'"}s terms of
+            Connect your wallet to continue with VidQ. By connecting your wallet you agree with VidQ{"'"}s terms of
             service.
           </p>
           <button

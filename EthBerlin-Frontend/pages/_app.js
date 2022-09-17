@@ -4,7 +4,11 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { ethers } from 'ethers';
 import '../styles/globals.css';
 import ConnectButton from "../components/WalletConnect/ConnectButton";
+import { Web3ReactProvider } from "@web3-react/core";
+import "../styles/globals.css";
 import StoreProvider from "../store/Store/StoreProvider";
+import { ethers } from "ethers";
+import Navigation from "../components/Navigation";
 
 export default function App({ Component }) {
   function getLibrary(provider) {
@@ -12,7 +16,6 @@ export default function App({ Component }) {
     library.pollingInterval = 12000;
     return library;
   }
-
   return (
     <div>
       <Head>
@@ -22,7 +25,10 @@ export default function App({ Component }) {
       </Head>
       <StoreProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
-          <Component />
+          <div>
+            <Navigation />
+            <Component />
+          </div>
         </Web3ReactProvider>
       </StoreProvider>
     </div>
