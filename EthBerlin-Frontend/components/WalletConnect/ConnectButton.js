@@ -14,7 +14,6 @@ import StoreContext from '../../store/Store/StoreContext';
 const ConnectButton = ({ }) => {
   // Context
   const { chainId, error, account, deactivate, safe } = useWeb3();
-  const [ensName] = useEns(account);
   const [appState, dispatch] = useContext(StoreContext);
   const { walletConnectModal } = appState;
 
@@ -33,11 +32,14 @@ const ConnectButton = ({ }) => {
   // Hooks
   useConnectOnLoad()(); // See [useEagerConnect](../../hooks/useEagerConnect.js)
 
-  useEffect(async () => {
-    if (account && iconWrapper.current) {
-      iconWrapper.current.innerHTML = '';
-      iconWrapper.current.appendChild(jazzicon(26, parseInt(account.slice(2, 10), 16)));
+  useEffect(() => {
+    async function check() {
+      if (account && iconWrapper.current) {
+        iconWrapper.current.innerHTML = '';
+        iconWrapper.current.appendChild(jazzicon(26, parseInt(account.slice(2, 10), 16)));
+      }
     }
+    check();
   }, [account, isOnCorrectNetwork]);
 
   useEffect(() => {

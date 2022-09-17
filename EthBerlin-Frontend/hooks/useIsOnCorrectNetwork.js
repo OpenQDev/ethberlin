@@ -6,12 +6,15 @@ const useIsOnCorrectNetwork = (props) => {
 	const { chainId, error, account } = useWeb3(props);
 	const [isOnCorrectNetwork, setIsOnCorrectNetwork] = useState(true);
 
-	useEffect(async() => {
-		if(error?.message?.includes('Unsupported chain id') || (chainIdDeployEnvMap[process.env.NEXT_PUBLIC_DEPLOY_ENV]['chainId'] !== chainId && account)){
-			setIsOnCorrectNetwork(false);
+	useEffect(() => {
+		async function check() {
+			if (error?.message?.includes('Unsupported chain id') || (chainIdDeployEnvMap[process.env.NEXT_PUBLIC_DEPLOY_ENV]['chainId'] !== chainId && account)) {
+				setIsOnCorrectNetwork(false);
+			} else {
+				setIsOnCorrectNetwork(true);
+			}
 		}
-		else{setIsOnCorrectNetwork(true);
-		}
+		check;
 	}, [chainId, error?.message]);
 
 	return [isOnCorrectNetwork, setIsOnCorrectNetwork];
