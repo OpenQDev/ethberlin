@@ -1,10 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import StoreContext from "../../store/Store/StoreContext";
 
-// Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
-// Thanks Steve!
-
-const UploadFile = ({ pullRequestId }) => {
+const UploadFile = ({ pullRequestId, lensHandle }) => {
   console.log('pullRequestId', pullRequestId);
 
   const [selectedFile, setSelectedFile] = useState();
@@ -35,11 +32,12 @@ const UploadFile = ({ pullRequestId }) => {
     const formData = new FormData();
 
     formData.append('file', selectedFile);
-
+    console.log('lensHandle', lensHandle);
     const metadata = JSON.stringify({
       name: 'File name',
       keyvalues: {
         pullRequestId,
+        lensHandle
       }
     });
 
@@ -50,6 +48,12 @@ const UploadFile = ({ pullRequestId }) => {
       console.log(IpfsHash);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const foo = () => {
+    if (lensHandle) {
+      handleSubmission();
     }
   };
 

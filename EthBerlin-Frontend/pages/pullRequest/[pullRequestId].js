@@ -51,7 +51,7 @@ export default function Upload() {
             </>
           ) : (
             <div className="flex justify-center py-24 w-full bg-dark-mode h-[700px]">
-              <UploadFile pullRequestId={pullRequestId} />
+              <UploadFile pullRequestId={pullRequestId} lensHandle={appState.lensHandle} />
             </div>
           )}
         </div>
