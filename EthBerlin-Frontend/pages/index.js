@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import AuthButton from '../components/Authentication/AuthButton';
 import ConnectButton from '../components/WalletConnect/ConnectButton';
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <AuthButton redirectUrl="http://localhost:3000" propicUrl="https://avatars.githubusercontent.com/u/93455288?v=4" />
         <ConnectButton />
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>

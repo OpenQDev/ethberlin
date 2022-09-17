@@ -4,7 +4,6 @@ module.exports = () => {
     NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV,
     NEXT_PUBLIC_CLIENT_ID: process.env.CLIENT_ID,
     NEXT_PUBLIC_CLIENT_SECRET: process.env.CLIENT_SECRET,
-    NEXT_PUBLIC_AUTH_URL: process.env.AUTH_URL,
   };
 
   const config = {
