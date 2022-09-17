@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import UploadFile from "../../components/UploadFile/UploadFile";
+import VideoPlayer from "../../components/VideoPlayer";
 import { useRouter } from 'next/router';
 
 export default function Upload() {
@@ -19,6 +20,7 @@ export default function Upload() {
 				<h1>VidQ</h1>
 				<div></div>
 				<UploadFile pullRequestId={pullRequestId} />
+				<VideoPlayer />
 			</main>
 		</div>
 	);
