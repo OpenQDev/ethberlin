@@ -1,6 +1,6 @@
 import VideoMini from "../components/VideoMini/VideoMini";
-import VideoPlayer from "../components/VideoPlayer";
 import ConnectButton from "../components/WalletConnect/ConnectButton";
+import Link from 'next/link';
 
 export default function Home() {
   const vidArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -21,13 +21,15 @@ export default function Home() {
         <div className="flex flex-wrap justify-center p-4 max-w-[1200px]">
           {vidArr.map((video) => {
             return (
-              <div key={video} className='flex p-4'>
-                <VideoMini
-                  source={
-                    "https://gateway.pinata.cloud/ipfs/QmXFrf8c8VPWnJzXqyuRZwSum6LrftTiJY4QBThhMsdqQv"
-                  }
-                  poster={""}
-                />
+              <div key={video} className="flex p-4">
+                <button onClick={() => alert('do it')}>
+                  <VideoMini
+                    source={
+                      "https://gateway.pinata.cloud/ipfs/QmXFrf8c8VPWnJzXqyuRZwSum6LrftTiJY4QBThhMsdqQv"
+                    }
+                    poster={""}
+                  />
+                </button>
               </div>
             );
           })}

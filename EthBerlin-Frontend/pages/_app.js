@@ -1,11 +1,15 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Web3ReactProvider } from '@web3-react/core';
-import '../styles/globals.css';
-import ConnectButton from "../components/WalletConnect/ConnectButton";
+import { Web3ReactProvider } from "@web3-react/core";
+import "../styles/globals.css";
 import StoreProvider from "../store/Store/StoreProvider";
+import { ethers } from 'ethers';
 
 export default function App({ Component }) {
+  function getLibrary(provider) {
+    const library = new ethers.providers.Web3Provider(provider);
+    library.pollingInterval = 12000;
+    return library;
+  }
   return (
     <div>
       <Head>
@@ -14,7 +18,7 @@ export default function App({ Component }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StoreProvider>
-        <Web3ReactProvider>
+        <Web3ReactProvider getLibrary={getLibrary}>
           <Component />
         </Web3ReactProvider>
       </StoreProvider>
