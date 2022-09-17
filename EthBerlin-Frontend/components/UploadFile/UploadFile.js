@@ -4,8 +4,8 @@ import axios from "axios";
 // Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
 // Thanks Steve!
 
-const UploadFile = () => {
-
+const UploadFile = ({ pullRequestId }) => {
+  console.log('pullRequestId', pullRequestId);
   const [selectedFile, setSelectedFile] = useState();
 
   const changeHandler = (event) => {
@@ -21,7 +21,7 @@ const UploadFile = () => {
     const metadata = JSON.stringify({
       name: 'File name',
       keyvalues: {
-        pullRequestId: 'abc123',
+        pullRequestId,
       }
     });
 
