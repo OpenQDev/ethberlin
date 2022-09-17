@@ -19,6 +19,7 @@ function GitHubAuth() {
     appState.authService
       .getAccessToken(authCode)
       .then((access_code) => {
+        console.log('access_code', access_code);
         window.localStorage.setItem('access_code', access_code);
         router.push('http://localhost:3000');
       })

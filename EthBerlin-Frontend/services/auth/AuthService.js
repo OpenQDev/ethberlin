@@ -8,7 +8,7 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const response = await axios.get(url, { withCredentials: true });
-				resolve(response);
+				resolve(response.data);
 			} catch (error) {
 				reject(error);
 			}

@@ -9,22 +9,8 @@ const SignIn = ({ redirectUrl }) => {
 
   const signIn = () => {
     const clientId = `client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}`;
-    const nonce = randomString(10);
-    window.localStorage.setItem('csrf_nonce', nonce);
-    const state = {
-      [nonce]: {
-        redirectUrl,
-      },
-    };
-    const stateParams = `state=${JSON.stringify(state)}`;
-    router.push(`https://github.com/login/oauth/authorize?${clientId}&${stateParams}`);
+    router.push(`https://github.com/login/oauth/authorize?${clientId}`);
   };
-
-  function randomString(length) {
-    return Array(length + 1)
-      .join((Math.random().toString(36) + '00000000000000000').slice(2, 18))
-      .slice(0, length);
-  }
 
   return (
     <button
