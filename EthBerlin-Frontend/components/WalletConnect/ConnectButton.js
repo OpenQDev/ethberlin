@@ -11,9 +11,10 @@ import useIsOnCorrectNetwork from '../../hooks/useIsOnCorrectNetwork';
 import StoreContext from '../../store/Store/StoreContext';
 // import axios from 'axios';
 
-const ConnectButton = ({ }) => {
+const ConnectButton = () => {
   // Context
   const { chainId, error, account, deactivate, safe } = useWeb3();
+  console.log(account);
   const [appState, dispatch] = useContext(StoreContext);
   const { walletConnectModal } = appState;
 

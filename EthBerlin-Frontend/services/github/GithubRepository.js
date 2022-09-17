@@ -28,16 +28,21 @@ class GithubRepository {
     cache: new InMemoryCache(),
   });
 
-  async getPullRequest(issueUrl) {
+  async getPullRequest(pullRequestId) {
     const promise = new Promise(async (resolve, reject) => {
       try {
         const result = await this.client.query({
           query: GET_PULL_REQUEST,
           variables: {
-            issueUrl,
+            pullRequestId
           },
         });
-        resolve(result.data.resource);
+        console.log(result);
+        resolve({
+          prUrl: result.data.node.url,
+          issueUrl: result.data.node.closingIssuesReferences.edges[0].node.url,
+          issueTitle: result.data.node.closingIssuesReferences.edges[0].node.title
+        });
       } catch (e) {
         reject(e);
       }

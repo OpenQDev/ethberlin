@@ -2,10 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import UploadFile from "../../components/UploadFile/UploadFile";
 import VideoPlayer from "../../components/VideoPlayer";
+import PR from "../../components/PR";
 import { useRouter } from 'next/router';
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import StoreContext from "../../store/Store/StoreContext";
+import ConnectButton from "../../components/WalletConnect/ConnectButton";
 
 export default function Upload() {
 	const router = useRouter();
@@ -28,6 +30,7 @@ export default function Upload() {
 		if (pullRequestId) {
 			check();
 		}
+
 	}, [pullRequestId]);
 
 	return (
@@ -39,9 +42,13 @@ export default function Upload() {
 			</Head>
 
 			<main>
+				<div>
+					<ConnectButton />
+				</div>
 				<h1>VidQ</h1>
 				<div></div>
 				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
+				<PR pullRequestId={pullRequestId} />
 			</main>
 		</div>
 	);
