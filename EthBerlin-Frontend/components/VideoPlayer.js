@@ -27,7 +27,7 @@ const VideoPlayer = ({ cid }) => {
 
 	return (
 		<>
-			<video playsInline autoPlay muted loop id="cover-video"></video>
+			<video playsInline autoPlay controls loop width="960" height="720" id="cover-video"></video>
 		</>
 	);
 };
