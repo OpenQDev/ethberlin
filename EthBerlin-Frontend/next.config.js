@@ -2,7 +2,8 @@ module.exports = () => {
   const env = {
     NEXT_PUBLIC_PAT: process.env.PAT,
     NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV,
-    NEXT_PUBLIC_PINATA_JWT: process.env.PINATA_JWT
+    NEXT_PUBLIC_PINATA_JWT: process.env.PINATA_JWT,
+    NEXT_PUBLIC_LENS_ADDRESS: process.env.LENS_ADDRESS
   };
 
   const config = {
@@ -54,8 +55,8 @@ module.exports = () => {
         'miguelpiedrafita.com',
         'deversifi.com',
         'user-images.githubusercontent.com',
-        'lens.infura-ipfs.io', 
-        'ipfs.infura.io', 
+        'lens.infura-ipfs.io',
+        'ipfs.infura.io',
         'ipfs.io',
         'cf-ipfs.com',
       ],
