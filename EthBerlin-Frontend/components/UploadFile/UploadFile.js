@@ -11,10 +11,6 @@ const UploadFile = ({ pullRequestId }) => {
   const [selectedFile, setSelectedFile] = useState();
   const [appState, dispatch] = useContext(StoreContext);
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
   useEffect(() => {
     async function check() {
       try {
@@ -29,6 +25,10 @@ const UploadFile = ({ pullRequestId }) => {
       check();
     }
   }, [pullRequestId]);
+
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
 
 
   const handleSubmission = async () => {
