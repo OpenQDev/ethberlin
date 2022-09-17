@@ -2,6 +2,11 @@
   padding: 0 2rem;
 }
 
+.header {
+  display: flex;
+  align-items: end;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
