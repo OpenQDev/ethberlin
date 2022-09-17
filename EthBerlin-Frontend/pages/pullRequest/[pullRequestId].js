@@ -38,7 +38,7 @@ export default function Upload() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="flex flex-col items-center p-8">
+			<div className="flex flex-col items-center">
 				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
 				<div className="flex w-[960px]">
 					<PR pullRequestId={pullRequestId} />

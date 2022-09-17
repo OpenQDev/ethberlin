@@ -2,38 +2,47 @@ import { useState, useContext, useEffect } from "react";
 import StoreContext from "../store/Store/StoreContext";
 
 const PR = ({ pullRequestId }) => {
-	const [appState, dispatch] = useContext(StoreContext);
-	const [foo, setFoo] = useState(null);
+  const [appState, dispatch] = useContext(StoreContext);
+  const [foo, setFoo] = useState(null);
 
-	useEffect(() => {
-		async function getPr() {
-			try {
-				const foothing = await appState.githubRepository.getPullRequest(pullRequestId);
-				setFoo(foothing);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		if (pullRequestId) {
-			getPr();
-		}
-	}, [pullRequestId]);
+  useEffect(() => {
+    async function getPr() {
+      try {
+        const foothing = await appState.githubRepository.getPullRequest(
+          pullRequestId
+        );
+        setFoo(foothing);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (pullRequestId) {
+      getPr();
+    }
+  }, [pullRequestId]);
 
+  if (foo) {
+    return (
+      <div className="flex flex-col">
+        <div className="text-2xl">GitHub Issue: {foo.issueTitle}</div>
+        <div>
+          Issue URL:{" "}
+          <a className="text-blue-400 hover:underline" target="_blank" rel="noreferrer" href={foo.issueUrl}>
+            {foo.issueUrl}
+          </a>
+        </div>
 
-	if (foo) {
-		return (
-			<>
-				<h2>Issue Title</h2>
-				<h2>{foo.issueTitle}</h2>
-				<h2>Issue Url</h2>
-				<a target="_blank" href={foo.issueUrl}>{foo.issueUrl}</a>
-				<h2>Pull Request</h2>
-				<a target="_blank" href={foo.prUrl}>{foo.prUrl}</a>
-			</>
-		);
-	} else {
-		return <h1>Loading...</h1>;
-	}
+        <div>
+          Pull Request URL:{" "}
+          <a className="text-blue-400 hover:underline" target="_blank" rel="noreferrer" href={foo.prUrl}>
+            {foo.prUrl}
+          </a>
+        </div>
+      </div>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 };
 
 export default PR;
