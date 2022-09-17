@@ -32,7 +32,7 @@ const ConnectButton = () => {
   const buttonRef = useRef();
 
   // Hooks
-  // useConnectOnLoad()(); // See [useEagerConnect](../../hooks/useEagerConnect.js)
+  useConnectOnLoad()(); // See [useEagerConnect](../../hooks/useEagerConnect.js)
 
   useEffect(() => {
     async function check() {
@@ -43,6 +43,17 @@ const ConnectButton = () => {
     }
     check();
   }, [account, isOnCorrectNetwork]);
+
+  useEffect(() => {
+    if(isAccountVerified) {
+        console.log("verification accepted")
+        const handle = appState.lensClient.fetchLensHandle(account);
+        if(handle){
+          console.log("handle", handle);
+          setIsLensVerified(handle.data.profiles.items[0].name);
+        }
+    }
+  }, [isAccountVerified])
 
   useEffect(() => {
     let handler = (event) => {
@@ -77,11 +88,8 @@ const ConnectButton = () => {
   const connectLens = async () => {
     const message = await appState.lensClient.signMessage(account)
     const address = appState.lensClient.ecdsaRecover(message);
-    console.log("account: ", account);
-    console.log("address: ", address);
     let isVerified = account.toLowerCase() === address.toLowerCase();
     setIsAccountVerified(isVerified);
-    console.log("isAccountVerified", isAccountVerified);
   }
 
 

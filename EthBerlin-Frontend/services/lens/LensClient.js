@@ -1,5 +1,8 @@
 import { ethers } from 'ethers';
 import LensABI from '../../abi.json';
+import { client, getWalletProfile } from '../../api';
+import useWeb3 from '../../hooks/useWeb3';
+import StoreContext from '../../store/Store/StoreContext';
 
 class LensClient {
 	constructor() { }
@@ -47,6 +50,15 @@ class LensClient {
 			return false;
 		}
 	}
+
+	async fetchLensHandle(address) {
+		try {
+		  const response = await client.query(getWalletProfile, { address }).toPromise();
+		  return response;
+		} catch (err) {
+		  console.log(err);
+		}
+	  }
 
 	compareAddress = (addr1, addr2) => {
 	console.log("adr1". addr1);
