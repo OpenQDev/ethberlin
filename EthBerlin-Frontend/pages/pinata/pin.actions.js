@@ -10,7 +10,7 @@ import {
 import { getErrorMessage } from 'helpers/error.helper';
 import {AxiosRequestConfig} from "axios";
 
-const getLabel = (submarine: boolean, label: string) => {
+const getLabel = (submarine, label) => {
     if (label === 'metadata') {
         return submarine ? 'metadata' : 'pinataMetadata';
     } else if (label === 'options') {
@@ -22,7 +22,7 @@ const getLabel = (submarine: boolean, label: string) => {
     }
 };
 
-const handleV2Upload = (selectedFiles: any, customName: any, wrapWithDirectory: boolean, submarine: boolean) => {
+const handleV2Upload = (selectedFiles, customName, wrapWithDirectory, submarine) => {
     const data = new FormData();
     if (customName && customName !== '') {
         data.append('name', customName);
@@ -30,7 +30,7 @@ const handleV2Upload = (selectedFiles: any, customName: any, wrapWithDirectory: 
 
     data.append('cidVersion', '1');
 
-    Array.from(selectedFiles).forEach((file: any) => {
+    Array.from(selectedFiles).forEach((file) => {
         data.append(getLabel(true, 'file'), file);
     });
 
@@ -45,7 +45,7 @@ const handleV2Upload = (selectedFiles: any, customName: any, wrapWithDirectory: 
     return data;
 };
 
-const handleV1Upload = (selectedFiles: any, customName: any, wrapWithDirectory: boolean) => {
+const handleV1Upload = (selectedFiles, customName, wrapWithDirectory) => {
     const data = new FormData();
     if (customName && customName !== '') {
         const metadata = JSON.stringify({
@@ -55,7 +55,7 @@ const handleV1Upload = (selectedFiles: any, customName: any, wrapWithDirectory: 
     }
 
     if (selectedFiles.length > 0) {
-        Array.from(selectedFiles).forEach((file: any) => {
+        Array.from(selectedFiles).forEach((file) => {
             data.append(getLabel(false, 'file'), file);
         });
     } else {
@@ -72,7 +72,7 @@ const handleV1Upload = (selectedFiles: any, customName: any, wrapWithDirectory: 
     return data;
 };
 
-const uploadPin = async (selectedFiles: any, customName: string, wrapWithDirectory: boolean, submarine: boolean, progressCallback: (props: any) => any) => {
+const uploadPin = async (selectedFiles, customName, wrapWithDirectory, submarine, progressCallback: (props) => any) => {
     let data, response, uploadedItem;
     const config: AxiosRequestConfig = {
         onUploadProgress: progressCallback
@@ -90,7 +90,7 @@ const uploadPin = async (selectedFiles: any, customName: string, wrapWithDirecto
 };
 
 export const handleUpload =
-    (selectedFiles: any, customName: string, wrapWithDirectory: boolean, progressCallback: (props: any) => any, submarine: boolean) => async (dispatch: any) => {
+    (selectedFiles, customName, wrapWithDirectory, progressCallback: (props) => any, submarine) => async (dispatch) => {
         try {
             const uploadedItem = await uploadPin(
                 selectedFiles,
@@ -117,7 +117,7 @@ export const handleUpload =
         }
     };
 
-const handleV2ContentUpdates = async (pinId: string, name: string, keyvalues: any) => {
+const handleV2ContentUpdates = async (pinId, name, keyvalues) => {
     //  Since we currently have two paths (V1 and V2) and on V2 name updates happen separately from metadata updates, this function is just always going to make a PUT request to both the content/id and content/id/metadata endpoints
     //  When we have unified everything, we will rewrite the UI to handle this properly.
     await managedApi.put(`content/${pinId}/metadata`, {
@@ -127,8 +127,8 @@ const handleV2ContentUpdates = async (pinId: string, name: string, keyvalues: an
 };
 
 export const putHashMetadata =
-    (hash: any, { name, keyvalues }: any, submitTableFilters: any, pinId: any) =>
-    async (dispatch: any) => {
+    (hash, { name, keyvalues }, submitTableFilters, pinId) =>
+    async (dispatch) => {
         try {
             if (pinId) {
                 await handleV2ContentUpdates(pinId, name, keyvalues);
@@ -150,7 +150,7 @@ export const putHashMetadata =
         }
     };
 
-export const removePin = (ipfsHash: string, submitTableFilters: any, contentId: string) => async (dispatch: any) => {
+export const removePin = (ipfsHash, submitTableFilters, contentId) => async (dispatch) => {
     try {
         if (contentId) {
             await managedApi.delete(`content/${contentId}`);
@@ -165,7 +165,7 @@ export const removePin = (ipfsHash: string, submitTableFilters: any, contentId: 
     }
 };
 
-export const regionPermissions = () => async (dispatch: any) => {
+export const regionPermissions = () => async (dispatch) => {
     try {
         const response = await api.get(`pinning/regionPermissions`);
         dispatch({ type: REGION_PERMISSIONS_RECEIVED, payload: response.data });
@@ -175,7 +175,7 @@ export const regionPermissions = () => async (dispatch: any) => {
     }
 };
 
-export const changeHashPinPolicy = (ipfsPinHash: string, newPinPolicy: any) => async (dispatch: any) => {
+export const changeHashPinPolicy = (ipfsPinHash, newPinPolicy) => async (dispatch) => {
     try {
         const data = {
             newPinPolicy: newPinPolicy,
@@ -191,7 +191,7 @@ export const changeHashPinPolicy = (ipfsPinHash: string, newPinPolicy: any) => a
     }
 };
 
-export const userPinPolicy = (newPinPolicy: any, migratePreviousPins: boolean) => async (dispatch: any) => {
+export const userPinPolicy = (newPinPolicy, migratePreviousPins) => async (dispatch) => {
     try {
         const data = {
             newPinPolicy: newPinPolicy,
@@ -207,7 +207,7 @@ export const userPinPolicy = (newPinPolicy: any, migratePreviousPins: boolean) =
     }
 };
 
-export const pinHash = (hashToPin: any, customName: string) => async (dispatch: any) => {
+export const pinHash = (hashToPin, customName) => async (dispatch) => {
     try {
         const data = {
             hashToPin: hashToPin,
@@ -230,7 +230,7 @@ export const pinHash = (hashToPin: any, customName: string) => async (dispatch: 
     }
 };
 
-export const generateAccessToken = (timeoutSeconds: number, id: string) => async (dispatch: any) => {
+export const generateAccessToken = (timeoutSeconds: number, id) => async (dispatch) => {
     try {
         const body = {
             timeoutSeconds,
@@ -244,8 +244,8 @@ export const generateAccessToken = (timeoutSeconds: number, id: string) => async
 };
 
 export const listFolderContents =
-    (file: any, offset: number, limit = 10) =>
-    async (dispatch: any) => {
+    (file, offset: number, limit = 10) =>
+    async (dispatch) => {
         try {
             const url = `content/${file.id}/list?offset=${offset}&limit=${limit}`;
             const res = await managedApi.get(url);
@@ -268,7 +268,7 @@ export const listFolderContents =
         }
     };
 
-export const makeSubmarinedFilePublic = (file: any) => async (dispatch: any) => {
+export const makeSubmarinedFilePublic = (file) => async (dispatch) => {
     try {
         const url = `content/${file.id}`;
         const body = {
@@ -285,7 +285,7 @@ export const makeSubmarinedFilePublic = (file: any) => async (dispatch: any) => 
     }
 };
 
-export const setPinContentPreviewOptions = (config: any) => async (dispatch: any, getState: any) => {
+export const setPinContentPreviewOptions = (config) => async (dispatch, getState) => {
     const { fileId, thumbnail, description, title } = config;
     try {
         const url = `v2/pins/${fileId}/preview`;
@@ -297,7 +297,7 @@ export const setPinContentPreviewOptions = (config: any) => async (dispatch: any
         if (result?.data) {
             // merge preview data with activePin object, and set updated list to the store
             const oldState = await getState().data.userPinList.rows;
-            const updatedPinsList = oldState.map((el: any) => {
+            const updatedPinsList = oldState.map((el) => {
                 if (el.id === result.data.pin_id) {
                     el = {
                         ...el,
@@ -323,7 +323,7 @@ export const setPinContentPreviewOptions = (config: any) => async (dispatch: any
     }
 };
 
-export const removePinContentPreviewOptions = (fileId: any) => async (dispatch: any) => {
+export const removePinContentPreviewOptions = (fileId) => async (dispatch) => {
     try {
         const url = `v2/pins/${fileId}/preview`;
         await api.delete(url);

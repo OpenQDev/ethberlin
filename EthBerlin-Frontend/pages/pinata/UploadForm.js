@@ -5,17 +5,18 @@ const UploadForm = ({ uploadType, handleFileInput, selectedFiles }) => {
 
   if (uploadType === 'file') {
     return (
-      <div className='pinata-file-uploader'>
-        <i style={{ fontSize: 36, marginBottom: 15 }} className='fas fa-file-upload'></i>
-        <h3>Select a file to upload</h3>
-        <input ref={fileInput} style={{ display: 'none' }} type='file' onChange={handleFileInput} />
-        <div>
-          <button onClick={() => fileInput.current && fileInput.current.click()} className='btn btn-pinataSecondary'>
-            {selectedFiles.length > 0 ? 'Select another file' : 'Select a file'}
-          </button>
-          <p style={{ marginTop: 10, textDecoration: 'underline' }}>
-            {selectedFiles.length > 0 && selectedFiles[0].name}
-          </p>
+      <div className='flex flex-col w-full items-center'>
+        <div className='flex flex-col gap-4 w-1/2 border border-gray-700 items-center p-8'>
+          <h3 className='text-lg p-2'>Select a file to upload</h3>
+          <input ref={fileInput} style={{ display: 'none' }} type='file' onChange={handleFileInput} />
+          <div>
+            <button onClick={() => fileInput.current && fileInput.current.click()} className='btn btn-default'>
+              {selectedFiles.length > 0 ? 'Select another file' : 'Select a file'}
+            </button>
+            <p style={{ marginTop: 10, textDecoration: 'underline' }}>
+              {selectedFiles.length > 0 && selectedFiles[0].name}
+            </p>
+          </div>
         </div>
       </div>
     );
