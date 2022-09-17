@@ -41,8 +41,7 @@ export default function Upload() {
 			<main>
 				<h1>VidQ</h1>
 				<div></div>
-				<UploadFile pullRequestId={pullRequestId} />
-				<VideoPlayer cid={cid} />
+				{cid ? <VideoPlayer cid={cid} /> : <UploadFile pullRequestId={pullRequestId} />}
 			</main>
 		</div>
 	);
