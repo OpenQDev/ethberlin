@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import StoreContext from "../../store/Store/StoreContext";
 
 // Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
 // Thanks Steve!
 
 const UploadFile = ({ pullRequestId }) => {
   console.log('pullRequestId', pullRequestId);
+
   const [selectedFile, setSelectedFile] = useState();
+  const [appState, dispatch] = useContext(StoreContext);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -28,14 +31,8 @@ const UploadFile = ({ pullRequestId }) => {
     formData.append('pinataMetadata', metadata);
 
     try {
-      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-        maxBodyLength: "Infinity",
-        headers: {
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
-        }
-      });
-      console.log(res.data);
+      const IpfsHash = await appState.pinataService.uploadVideo(formData);
+      console.log(IpfsHash);
     } catch (error) {
       console.log(error);
     }
