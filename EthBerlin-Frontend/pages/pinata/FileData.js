@@ -1,10 +1,5 @@
-import { handleFileValidations } from 'helpers/validations';
 import React, { useState, useRef } from 'react';
-import { Label, Input, Tooltip } from 'reactstrap';
-import { formatBytes } from 'helpers/pretty';
-import pinataSub from '../../../assets/images/Submarine-Beta_Standard.svg';
-import ToggleSwitch from 'pages/Utility/ToggleSwitch';
-import { planTypes } from 'helpers/enums';
+// import ToolTipNew from '../../components/Utils/ToolTipNew';
 
 const FileData = ({
   setAlert,
@@ -61,11 +56,10 @@ const FileData = ({
   };
 
   const isProPlan = () => {
-    return (
-      (billing?.activePricingPlan?.type && billing?.activePricingPlan?.type !== planTypes.FREE.type) ||
+    return true;
+    /* (billing?.activePricingPlan?.type && billing?.activePricingPlan?.type !== planTypes.FREE.type) ||
       // support for old PRO plans
-      billing?.activePricingPlan?.name === 'PROFESSIONAL'
-    );
+      billing?.activePricingPlan?.name === 'PROFESSIONAL' */
   };
 
   return (
@@ -73,10 +67,10 @@ const FileData = ({
       <h4 className='card-title'>Details</h4>
       <p className='card-title-desc'>Give your file or folder a name.</p>
       <div className='mt-3'>
-        <Label className='text-muted'>
+        <div className='text-muted'>
           Name <span>*</span>
-        </Label>
-        <Input
+        </div>
+        <input
           type='text'
           maxLength='50'
           onChange={threshholdChange}
@@ -90,21 +84,21 @@ const FileData = ({
 
       {isProPlan() && (
         <div className='mt-3'>
-          <Label className='text-muted'>
+          <div className='text-muted'>
             Submarine Your File?
             <img
               style={{ height: 25, marginTop: '-8px', marginLeft: 5 }}
-              src={pinataSub}
+              src={'https://gateway.pinata.cloud/ipfs/QmPTsFGpYofLnRd6yyp16tXtKiisNLB8MukaBFYjCQRmaw'}
               alt='Image of a yellow submarine'
             />
             <i id='info-submarine' style={{ marginLeft: 5 }} className='fas fa-info-circle'></i>
-          </Label>
-          <Tooltip placement='right' isOpen={tooltipOpen} target='info-submarine' toggle={toggle}>
+          </div>
+          {/* <ToolTipNew placement='right' isOpen={tooltipOpen} target='info-submarine' toggle={toggle}>
             Submarining a file is the process of generating an IPFS CID and storing a file without putting the file on
             IPFS. You can upload another copy of the file without Submarining it to put it on the public network, or you
             can leave it private.
-          </Tooltip>
-          <ToggleSwitch checked={submarine} toggleChecked={() => setSubmarine(!submarine)} label='Submarine' />
+          </ToolTipNew> */}
+          {/* <ToggleSwitch checked={submarine} toggleChecked={() => setSubmarine(!submarine)} div='Submarine' /> */}
         </div>
       )}
       <button

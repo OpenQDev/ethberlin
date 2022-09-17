@@ -1,17 +1,16 @@
 import React from 'react';
-import { CircularProgress, LinearProgress } from '@mui/material';
 
 const Uploading = (props) => {
   return (
     <div style={{ textAlign: 'center' }}>
       {props.progress > 0 && props.progress < 100 ? (
         <>
-          <LinearProgress variant="determinate" value={props.progress} color="primary" />
-          <p className="upload-progress-label">Progress: {props.progress}%</p>
+          {/* <LinearProgress variant='determinate' value={props.progress} color='primary' /> */}
+          <p className='upload-progress-label'>Progress: {props.progress}%</p>
         </>
       ) : (
         <>
-          <CircularProgress color="primary" />
+          {/* <CircularProgress color='primary' /> */}
           <p>Generating CIDs and pinning your file(s). This may take a while…</p>
         </>
       )}

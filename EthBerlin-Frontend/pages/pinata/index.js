@@ -1,41 +1,30 @@
-import React, {useState, ChangeEvent, useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import StepProgress from './StepProgress';
 import UploadWizard from './UploadWizard';
 import { handleFileValidations } from '../../../helpers/validations';
 import { setAlert } from '../../../store/alert/alert.actions';
-import { handleUpload } from '../../../actions/pin.actions';
+import { handleUpload } from './pin.actions';
 import { connect } from 'react-redux';
 import { formatBytes } from '../../../helpers/pretty';
 import { planTypes } from 'helpers/enums';
-import {BillingState} from "../../../store/billing/types";
-import {Metrics} from "../../../store/metrics/types";
 
-interface UploadProps {
-  uploadType: any;
-  setAlert: any;
-  closeModal: any;
-  handleUpload: any;
-  billing: BillingState;
-  metrics: Metrics;
-}
-
-const index = ({ uploadType, setAlert, closeModal, handleUpload, billing, metrics }: UploadProps) => {
+const index = ({ uploadType, setAlert, closeModal, handleUpload, billing, metrics }) => {
   const [steps, setSteps] = useState([
     {
       key: 1,
       step: 'Select',
-      active: true
+      active: true,
     },
     {
       key: 2,
       step: 'Detail',
-      active: false
+      active: false,
     },
     {
       key: 3,
       step: 'Upload',
-      active: false
-    }
+      active: false,
+    },
   ]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileName, setFileName] = useState('');
@@ -51,48 +40,51 @@ const index = ({ uploadType, setAlert, closeModal, handleUpload, billing, metric
   const [progress, setProgress] = useState(0);
   const [wrapWithDirectory] = useState(false);
 
-  const handleSetStep = (stepIndex: number) => {
+  const handleSetStep = (stepIndex) => {
     const updatedSteps = JSON.parse(JSON.stringify(steps));
-    updatedSteps.forEach((s: any) => {
+    updatedSteps.forEach((s) => {
       s.active = false;
     });
     updatedSteps[stepIndex].active = true;
     setSteps(updatedSteps);
   };
 
-  const handleFileInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const files: any = e.target.files || [];
-    if (uploadType === 'file' && files.length > 1) {
-      setAlert('You selected more than one file', 'error');
-      setSelectedFiles([]);
-      return;
-    }
-    const fileValidation = handleFileValidations(files, metrics, billing);
-    if (fileValidation.isValid) {
-      for (let i = 0; i < files.length; i++) {
-        Object.assign(files[i], {
-          preview: URL.createObjectURL(files[i]),
-          formattedSize: formatBytes(files[i].size)
+  const handleFileInput = useCallback(
+    (e) => {
+      const files = e.target.files || [];
+      if (uploadType === 'file' && files.length > 1) {
+        setAlert('You selected more than one file', 'error');
+        setSelectedFiles([]);
+        return;
+      }
+      const fileValidation = handleFileValidations(files, metrics, billing);
+      if (fileValidation.isValid) {
+        for (let i = 0; i < files.length; i++) {
+          Object.assign(files[i], {
+            preview: URL.createObjectURL(files[i]),
+            formattedSize: formatBytes(files[i].size),
+          });
+        }
+        if (uploadType === 'file') {
+          setSelectedFiles(files);
+          setFileName(files[0].name);
+        } else {
+          setSelectedFiles(files);
+        }
+        const updatedSteps = JSON.parse(JSON.stringify(steps));
+        updatedSteps.forEach((s) => {
+          s.active = false;
         });
-      }
-      if (uploadType === 'file') {
-        setSelectedFiles(files);
-        setFileName(files[0].name);
+        updatedSteps[1].active = true;
+        setSteps(updatedSteps);
       } else {
-        setSelectedFiles(files);
+        setAlert(fileValidation.errorMsg, 'error');
+        closeModal();
+        return;
       }
-      const updatedSteps = JSON.parse(JSON.stringify(steps));
-      updatedSteps.forEach((s: any) => {
-        s.active = false;
-      });
-      updatedSteps[1].active = true;
-      setSteps(updatedSteps);
-    } else {
-      setAlert(fileValidation.errorMsg, 'error');
-      closeModal();
-      return;
-    }
-  }, [metrics]);
+    },
+    [metrics]
+  );
 
   const upload = async () => {
     setUploading(true);
@@ -101,17 +93,16 @@ const index = ({ uploadType, setAlert, closeModal, handleUpload, billing, metric
     closeModal();
   };
 
-  const handleUploadProgress = (uploadEvt: any) => {
+  const handleUploadProgress = (uploadEvt) => {
     const percentUploaded = (uploadEvt.loaded / uploadEvt.total) * 100;
     setProgress(Number(percentUploaded.toFixed(2)));
   };
 
-
-
   return (
     <div>
       <StepProgress selectedFiles={selectedFiles} steps={steps} handleSetStep={handleSetStep} />
-      {(billing?.activePricingPlan?.storage_limit_gb || billing?.activePricingPlan?.isLegacy ||
+      {(billing?.activePricingPlan?.storage_limit_gb ||
+        billing?.activePricingPlan?.isLegacy ||
         // allow file upload for plans that have limit or for custom plans
         billing?.activePricingPlan?.type === planTypes.ENTERPRISE.type) && (
         <UploadWizard
@@ -151,10 +142,10 @@ const index = ({ uploadType, setAlert, closeModal, handleUpload, billing, metric
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state) => {
   return {
     billing: state.billing,
-    metrics: state.metrics?.metrics
+    metrics: state.metrics?.metrics,
   };
 };
 
