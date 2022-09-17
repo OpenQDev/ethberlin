@@ -39,7 +39,7 @@ const UploadFile = () => {
 
   return (
     <>
-      <label class="form-label">Choose File</label>
+      <label className="form-label">Choose File</label>
       <input type="file" onChange={changeHandler} />
       <button onClick={handleSubmission}>Submit</button>
     </>
