@@ -17,6 +17,18 @@ const ConnectButton = ({ }) => {
   const [appState, dispatch] = useContext(StoreContext);
   const { walletConnectModal } = appState;
 
+  useEffect(() => {
+    async function foo() {
+      try {
+        const response = await appState.pinataService.testAuth();
+        console.log('responseresponse', response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    foo();
+  });
+
   // State
   const [isConnecting, setIsConnecting] = useState(false);
   const [isOnCorrectNetwork] = useIsOnCorrectNetwork({
