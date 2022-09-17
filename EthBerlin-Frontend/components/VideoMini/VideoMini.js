@@ -12,7 +12,6 @@ const VideoMini = ({ cid }) => {
   }, []);
 
   useEffect(() => {
-    console.log('cid', cid);
     if (cid) {
       var hlsFoo = new Hls();
       hlsFoo.loadSource(`https://openqethberlin.mypinata.cloud/ipfs/${cid}?stream=true&mode=hls`);

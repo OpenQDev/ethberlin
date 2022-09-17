@@ -13,7 +13,7 @@ import StoreContext from '../../store/Store/StoreContext';
 const ConnectButton = () => {
   // Context
   const { chainId, error, account, deactivate, safe } = useWeb3();
- /*  console.log(account); */
+  /*  console.log(account); */
   const [appState, dispatch] = useContext(StoreContext);
   const { walletConnectModal } = appState;
 
@@ -26,6 +26,7 @@ const ConnectButton = () => {
   });
   const [isLensVerified, setIsLensVerified] = useState(false);
   const [isAccountVerified, setIsAccountVerified] = useState(false);
+  const [lensHandle, setLensHandle] = useState(null);
   const [showModal, setShowModal] = useState();
   const iconWrapper = useRef();
   const modalRef = useRef();
@@ -45,15 +46,20 @@ const ConnectButton = () => {
   }, [account, isOnCorrectNetwork]);
 
   useEffect(() => {
-    if(isAccountVerified) {
-        console.log("verification accepted")
-        const handle = appState.lensClient.fetchLensHandle(account);
-        if(handle){
-          console.log("handle", handle);
-          setIsLensVerified(handle.data.profiles.items[0].name);
-        }
+    async function foo() {
+      console.log("verification accepted");
+      const handle = await appState.lensClient.fetchLensHandle(account);
+      if (handle) {
+        console.log("handle", handle);
+        setIsLensVerified(true);
+        setLensHandle(handle.data.profiles.items[0].handle);
+      }
     }
-  }, [isAccountVerified])
+
+    if (isAccountVerified) {
+      foo();
+    }
+  }, [isAccountVerified]);
 
   useEffect(() => {
     let handler = (event) => {
@@ -86,11 +92,11 @@ const ConnectButton = () => {
   };
 
   const connectLens = async () => {
-    const message = await appState.lensClient.signMessage(account)
+    const message = await appState.lensClient.signMessage(account);
     const address = appState.lensClient.ecdsaRecover(message);
     let isVerified = account.toLowerCase() === address.toLowerCase();
     setIsAccountVerified(isVerified);
-  }
+  };
 
 
   const addOrSwitchNetwork = () => {
@@ -105,8 +111,9 @@ const ConnectButton = () => {
   // Render
   return (
     <div>
-      { account && isOnCorrectNetwork && isLensVerified ? (
+      {account && isOnCorrectNetwork && isLensVerified ? (
         <div>
+          <h1>{lensHandle}</h1>
           <button
             disabled={isConnecting}
             ref={buttonRef}
@@ -136,24 +143,24 @@ const ConnectButton = () => {
       ) : account && isOnCorrectNetwork && !isLensVerified ? (
         <button onClick={connectLens} className="flex items-center btn-default mr-4 hover:border-[#8b949e] hover:bg-[#30363d]"> Connect Lens </button>
       )
-      : isOnCorrectNetwork ? (
-        <div>
+        : isOnCorrectNetwork ? (
+          <div>
+            <button
+              onClick={openConnectModal}
+              className='flex items-center btn-default mr-4 hover:border-[#8b949e] hover:bg-[#30363d]'
+              disabled={isConnecting}
+            >
+              {'Connect Wallet'}
+            </button>
+          </div>
+        ) : (
           <button
-            onClick={openConnectModal}
+            onClick={addOrSwitchNetwork}
             className='flex items-center btn-default mr-4 hover:border-[#8b949e] hover:bg-[#30363d]'
-            disabled={isConnecting}
           >
-            {'Connect Wallet'}
+            Use {chainIdDeployEnvMap[process.env.NEXT_PUBLIC_DEPLOY_ENV]['networkName']} Network
           </button>
-        </div>
-      ) : (
-        <button
-          onClick={addOrSwitchNetwork}
-          className='flex items-center btn-default mr-4 hover:border-[#8b949e] hover:bg-[#30363d]'
-        >
-          Use {chainIdDeployEnvMap[process.env.NEXT_PUBLIC_DEPLOY_ENV]['networkName']} Network
-        </button>
-      )}
+        )}
       {walletConnectModal && <ConnectModal closeModal={closeModal} />}
     </div>
   );
