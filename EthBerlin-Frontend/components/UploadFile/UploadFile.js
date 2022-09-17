@@ -20,7 +20,11 @@ const UploadFile = () => {
 
     const metadata = JSON.stringify({
       name: 'File name',
+      keyvalues: {
+        pullRequestId: 'abc123',
+      }
     });
+
     formData.append('pinataMetadata', metadata);
 
     try {
