@@ -1,5 +1,5 @@
-import { useState } from "react"
-import axios from "axios" 
+import { useState } from "react";
+import axios from "axios";
 
 // Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
 // Thanks Steve!
@@ -12,23 +12,23 @@ const UploadFile = () => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmission = async() => {
+  const handleSubmission = async () => {
 
     const formData = new FormData();
-    
-    formData.append('file', selectedFile)
+
+    formData.append('file', selectedFile);
 
     const metadata = JSON.stringify({
       name: 'File name',
     });
     formData.append('pinataMetadata', metadata);
 
-    try{
+    try {
       const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
         maxBodyLength: "Infinity",
         headers: {
           'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-          Authorization: `Bearer PASTE_YOUR_JWT_HERE`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
         }
       });
       console.log(res.data);
@@ -39,11 +39,11 @@ const UploadFile = () => {
 
   return (
     <>
-    <label class="form-label">Choose File</label>
-    <input type="file"  onChange={changeHandler}/>
-    <button onClick={handleSubmission}>Submit</button>
+      <label class="form-label">Choose File</label>
+      <input type="file" onChange={changeHandler} />
+      <button onClick={handleSubmission}>Submit</button>
     </>
-  )
-}
+  );
+};
 
-export default UploadFile
+export default UploadFile;

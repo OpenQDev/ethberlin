@@ -1,7 +1,8 @@
 module.exports = () => {
   const env = {
     NEXT_PUBLIC_PAT: process.env.PAT,
-    NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV
+    NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV,
+    NEXT_PUBLIC_PINATA_JWT: process.env.PINATA_JWT
   };
 
   const config = {
