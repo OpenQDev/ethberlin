@@ -25,6 +25,7 @@ export default function Upload() {
   useEffect(() => {
     async function check() {
       try {
+        console.log("pullRequestId", pullRequestId)
         const res = await appState.pinataService.fetchVideo(pullRequestId);
         console.log("res: ", res);
         setCid(res);

@@ -30,7 +30,6 @@ class PinataService {
 						Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
 					}
 				});
-				console.log("res video fetch: ", res);
 
 				if (res.data.count == 0) {
 					resolve(null);

@@ -49,7 +49,20 @@ const UploadFile = ({ pullRequestId, lensHandle}) => {
 
     try {
       const IpfsHash = await appState.pinataService.uploadVideo(formData);
-      console.log(IpfsHash);
+      console.log("ipfs hash here: ", IpfsHash);
+
+      if(window.localStorage.getItem('videos')) {
+        let videos = JSON.parse(window.localStorage.getItem('videos'));
+        console.log("video upload array", videos);
+        videos.push([IpfsHash, pullRequestId])
+        window.localStorage.setItem('videos', JSON.stringify(videos))
+      } else {
+      const arr = [
+        [IpfsHash , pullRequestId],
+      ];
+      window.localStorage.setItem('videos', JSON.stringify(arr));
+      }
+
     } catch (error) {
       console.log(error);
     }

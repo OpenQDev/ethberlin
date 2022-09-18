@@ -40,13 +40,14 @@ const StoreReducer = (state, action) => {
         ...state,
         walletConnectModal: action.payload,
       };
-    }
-    case 'LENS_HANDLE': {
+    };
+    case 'LENS_AUTH': {
       return {
         ...state,
-        lensHandle: action.payload,
+        lensProfile: action.payload,
       };
     }
+    
     default:
       return state;
   }
