@@ -37,7 +37,9 @@ export default function Home() {
  */
   return (
     <div>
-      <main className="flex justify-center">
+      <main>
+        <div className="flex flex-row space-x-5">
+        <div className="px-10 h-max font-semibold pt-5">Following</div>
         <div className="flex flex-wrap justify-center p-4 max-w-[1200px]">
           {localVids ?
             (
@@ -63,6 +65,7 @@ export default function Home() {
               }
               )
             )}
+        </div>
         </div>
       </main>
     </div>
