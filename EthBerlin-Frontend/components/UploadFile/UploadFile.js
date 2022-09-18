@@ -1,8 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import StoreContext from "../../store/Store/StoreContext";
 
-const UploadFile = ({ pullRequestId, lensHandle }) => {
+// Curtesy from Pinata https://gist.github.com/stevedsimkins/6ac80b5eb9736fb29d9056f4440e71f1 
+// Thanks Steve!
+
+const UploadFile = ({ pullRequestId, lensHandle}) => {
   console.log('pullRequestId', pullRequestId);
+  console.log('lensHandle', lensHandle);
 
   const [selectedFile, setSelectedFile] = useState();
   const [appState, dispatch] = useContext(StoreContext);
@@ -32,7 +36,7 @@ const UploadFile = ({ pullRequestId, lensHandle }) => {
     const formData = new FormData();
 
     formData.append('file', selectedFile);
-    console.log('lensHandle', lensHandle);
+
     const metadata = JSON.stringify({
       name: 'File name',
       keyvalues: {
@@ -51,18 +55,12 @@ const UploadFile = ({ pullRequestId, lensHandle }) => {
     }
   };
 
-  const foo = () => {
-    if (lensHandle) {
-      handleSubmission();
-    }
-  };
-
   return (
-    <div className="flex flex-col gap-8 justify-center items-center bg-nav-bg border rounded-sm border-gray-700 w-1/2 h-1/2">
-      <label className="form-label text-lg">Choose File</label>
-      <input className="input-field btn-default flex p-2 border" type="file" onChange={changeHandler} />
-      <button className="btn-primary px-12 py-1" onClick={handleSubmission}>Submit</button>
-    </div>
+    <>
+      <label className="form-label">Choose File</label>
+      <input type="file" onChange={changeHandler} />
+      <button onClick={handleSubmission}>Submit</button>
+    </>
   );
 };
 

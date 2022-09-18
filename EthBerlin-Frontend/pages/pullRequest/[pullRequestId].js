@@ -9,10 +9,18 @@ import StoreContext from "../../store/Store/StoreContext";
 export default function Upload() {
   const router = useRouter();
   const { pullRequestId } = router.query;
-
+  const [lensHandle, setLensHandle] = useState(null);
   const [appState, dispatch] = useContext(StoreContext);
-  console.log('appState.lensHandle', appState.lensHandle);
   const [cid, setCid] = useState(null);
+
+  useEffect(() => {
+    const handle= window.localStorage.getItem('lensHandle');
+    if(handle) {
+      setLensHandle(handle);
+    } else {
+      setLensHandle("Anon");
+    }
+  })
 
   useEffect(() => {
     async function check() {
@@ -51,7 +59,7 @@ export default function Upload() {
             </>
           ) : (
             <div className="flex justify-center py-24 w-full bg-dark-mode h-[700px]">
-              <UploadFile pullRequestId={pullRequestId} lensHandle={appState.lensHandle} />
+              <UploadFile pullRequestId={pullRequestId} lensHandle={lensHandle} />
             </div>
           )}
         </div>
