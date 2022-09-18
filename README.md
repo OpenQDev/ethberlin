@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Quick and dirty demo video here: https://www.loom.com/share/6872f390953f4880879de1b05bc1da44
 
+Check out the deployed demo here: https://ethberlin-flacojones-openqberlin2022.vercel.app/
+
 ## Getting Started
 
 First, run the development server:
