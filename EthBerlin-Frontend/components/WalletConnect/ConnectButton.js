@@ -121,7 +121,6 @@ const ConnectButton = () => {
     <div>
       {account && isOnCorrectNetwork && isLensVerified || localLensHandle ? (
         <div>
-          <h1>{lensHandle ? lensHandle : localLensHandle}</h1>
           <button
             disabled={isConnecting}
             ref={buttonRef}
@@ -135,6 +134,8 @@ const ConnectButton = () => {
               ref={iconWrapper}
             ></span>
             <span className='md:group-hover:opacity-70'>
+            <div className="flex flex-row pl-2 space-x-2 items-center">
+            <h1>{lensHandle ? lensHandle : localLensHandle}</h1>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='h-3 w-3'
@@ -145,7 +146,9 @@ const ConnectButton = () => {
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
               </svg>
+            </div>
             </span>
+            
           </button>
         </div>
       ) : account && isOnCorrectNetwork && !isLensVerified ? (
