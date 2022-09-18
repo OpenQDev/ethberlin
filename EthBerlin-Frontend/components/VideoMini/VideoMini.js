@@ -20,7 +20,7 @@ const VideoMini = ({ cid }) => {
   }, [cid]);
 
   return (
-    <video playsInline muted false width="320" height="240" id={`cover-video-${cid}`}></video>
+    <video playsInline muted width="320" height="240" id={`cover-video-${cid}`}></video>
   );
 };
 
