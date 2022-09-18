@@ -5,16 +5,18 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const router = useRouter();
   const [vidArr, setVidArray] = useState(
-  [
-    ['QmXi1gcn2GAVffy74DBdCPRTF29MD2Nojn3QSCVwDJ8A1B', 'PR_kwDOGAqhQc4uEWDY'], 
-  ]
+    [
+      ['QmXi1gcn2GAVffy74DBdCPRTF29MD2Nojn3QSCVwDJ8A1B', 'PR_kwDOGAqhQc4uEWDY'],
+      ['QmVci9ke1tBPf1cZmRfKC4gRZt1u4aUc7TaRdgoYDyPamZ', 'PR_kwDOGAqhQc4uEf0i'],
+      ['QmeToRD3udpb5V5iGk4PZepoMQBVehUkscsuvM6uN8BQc1', 'PR_kwDOGAqhQc4uEZjQ']
+    ]
   );
-  const [localVids, setLocalVids] = useState(null)
+  const [localVids, setLocalVids] = useState(null);
 
   useEffect(() => {
-    setLocalVids(JSON.parse(window.localStorage.getItem('videos')))
+    setLocalVids(JSON.parse(window.localStorage.getItem('videos')));
     console.log("localVids: ", localVids);
-  }, [])
+  }, []);
 
   /* const vidArr = [
     {cid: 'QmXi1gcn2GAVffy74DBdCPRTF29MD2Nojn3QSCVwDJ8A1B', prId: 'PR_kwDOGAqhQc4uEWDY' },
@@ -32,18 +34,18 @@ export default function Home() {
     <div>
       <main className="flex justify-center">
         <div className="flex flex-wrap justify-center p-4 max-w-[1200px]">
-          {localVids ? 
+          {localVids ?
             (
-            localVids.map((foo, i) => {
-              return (
-                <div key={foo[0]} className="flex p-4">
-                  <button onClick={() => router.push(`/pullRequest/${foo[1]}`)}>
-                    <VideoMini cid={foo[0]} />
-                  </button>
-                </div>
-              );
+              localVids.map((foo, i) => {
+                return (
+                  <div key={foo[0]} className="flex p-4">
+                    <button onClick={() => router.push(`/pullRequest/${foo[1]}`)}>
+                      <VideoMini cid={foo[0]} />
+                    </button>
+                  </div>
+                );
               })
-            ) : 
+            ) :
             (
               vidArr.map((foo, i) => {
                 return (
@@ -54,8 +56,8 @@ export default function Home() {
                   </div>
                 );
               }
-            )
-          )}
+              )
+            )}
         </div>
       </main>
     </div>

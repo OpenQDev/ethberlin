@@ -42,6 +42,28 @@ class PinataService {
 			}
 		});
 	}
+
+	async fetchVideoForUser(lensHandle) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.get(`https://api.pinata.cloud/data/pinList?metadata[keyvalues]={"lensHandle":{"value":"${lensHandle}", "op": "eq"}}`, {
+					maxBodyLength: "Infinity",
+					headers: {
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
+					}
+				});
+
+				if (res.data.count == 0) {
+					resolve(null);
+				} else {
+					resolve(res.data.rows);
+				}
+			} catch (error) {
+				console.log(error);
+				reject(error);
+			}
+		});
+	}
 }
 
 export default PinataService;
