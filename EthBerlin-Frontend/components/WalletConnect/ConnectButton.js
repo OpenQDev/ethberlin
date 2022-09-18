@@ -26,6 +26,7 @@ const ConnectButton = () => {
   });
   const [isLensVerified, setIsLensVerified] = useState(false);
   const [isAccountVerified, setIsAccountVerified] = useState(false);
+  const [localLensHandle, setLocalLensHandle] = useState(null);
   const [lensHandle, setLensHandle] = useState(null);
   const [showModal, setShowModal] = useState();
   const iconWrapper = useRef();
@@ -46,6 +47,11 @@ const ConnectButton = () => {
   }, [account, isOnCorrectNetwork]);
 
   useEffect(() => {
+    const handle= window.localStorage.getItem('lensHandle');
+    setLocalLensHandle(handle);
+  })
+
+  useEffect(() => {
     async function foo() {
       console.log("verification accepted");
       const handle = await appState.lensClient.fetchLensHandle(account);
@@ -53,6 +59,7 @@ const ConnectButton = () => {
         console.log("handle", handle);
         setIsLensVerified(true);
         setLensHandle(handle.data.profiles.items[0].handle);
+        window.localStorage.setItem('lensHandle', handle.data.profiles.items[0].handle);
         dispatch({ type: 'LENS_HANDLE', payload: handle.data.profiles.items[0].handle });
       }
     }
@@ -112,9 +119,9 @@ const ConnectButton = () => {
   // Render
   return (
     <div>
-      {account && isOnCorrectNetwork && isLensVerified ? (
+      {account && isOnCorrectNetwork && isLensVerified || localLensHandle ? (
         <div>
-          <h1>{lensHandle}</h1>
+          <h1>{lensHandle ? lensHandle : localLensHandle}</h1>
           <button
             disabled={isConnecting}
             ref={buttonRef}
