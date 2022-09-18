@@ -41,7 +41,7 @@ const PR = ({ pullRequestId }) => {
 
         <div>
           Lens Handle:{" "}
-          <a className="text-blue-400 hover:underline" target="_blank" rel="noreferrer" href={'http://localhost:3000/profile/0x46e0'}>
+          <a className="text-blue-400 hover:underline" target="_blank" rel="noreferrer" href={'https://ethberlin-flacojones-openqberlin2022.vercel.app/profile/0x46e0'}>
             {'hssht.lens'}
           </a>
         </div>
