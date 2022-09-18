@@ -8,7 +8,12 @@ export default function Home() {
     [
       ['QmXi1gcn2GAVffy74DBdCPRTF29MD2Nojn3QSCVwDJ8A1B', 'PR_kwDOGAqhQc4uEWDY'],
       ['QmVci9ke1tBPf1cZmRfKC4gRZt1u4aUc7TaRdgoYDyPamZ', 'PR_kwDOGAqhQc4uEf0i'],
-      ['QmeToRD3udpb5V5iGk4PZepoMQBVehUkscsuvM6uN8BQc1', 'PR_kwDOGAqhQc4uEZjQ']
+      ['QmeToRD3udpb5V5iGk4PZepoMQBVehUkscsuvM6uN8BQc1', 'PR_kwDOGAqhQc4uEZjQ'],
+      ['QmZF7ZnhUAYYQDLsaGCZ6Z9TP1xASDw1jA9yicRKzZPSne', 'PR_kwDOGAqhQc4yprwl'],
+      ['QmcfhvqnbgVYNGngdc9vbBkM5FE9BEQmQ69CLw2WK8ZaDC', 'PR_kwDOGAqhQc4zAXq9'],
+      ['QmNknu7gvGmdWfdUh6c2piP7isYNkt8vYXxbZCTGtRVwmi', 'PR_kwDOGAqhQc4zUpKa'],
+      ['QmXhwUFAAcoYaJc9gFK9rhBhWbVEpEqhH7tX7BjxYfAkJo', 'PR_kwDOGAqhQc4zbPSv'],
+      ['QmbvgweGAnhJSu85m2XL82TRdbkikA3DdVKUjT1yQaMYsZ', 'PR_kwDOGAqhQc4zruk2']
     ]
   );
   const [localVids, setLocalVids] = useState(null);
