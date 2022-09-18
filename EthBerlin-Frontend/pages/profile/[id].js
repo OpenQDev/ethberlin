@@ -4,6 +4,7 @@ import { client, getProfiles, getWalletProfile } from '../../api';
 import { ethers } from 'ethers';
 import useWeb3 from '../../hooks/useWeb3';
 import StoreContext from "../../store/Store/StoreContext";
+import VideoMini from '../../components/VideoMini/VideoMini';
 
 export default function Profile() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function Profile() {
   const { id } = router.query;
   const [profile, setProfile] = useState();
   const [verifiedLensProfile, setVerifiedLensProfile] = useState();
+  const [videos, setVideos] = useState([]);
 
   const { chainId, error, account, library, deactivate, safe } = useWeb3();
 
@@ -34,8 +36,8 @@ export default function Profile() {
   async function fetchLensHandle() {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts"
-    })
-    const address = accounts[0]
+    });
+    const address = accounts[0];
     console.log("waller found: ", address);
     try {
       const response = await client.query(getWalletProfile, { address }).toPromise();
@@ -55,6 +57,16 @@ export default function Profile() {
     }
   }
 
+  useEffect(() => {
+    async function foo() {
+      const response = await appState.pinataService.fetchVideoForUser('flacojones.lens');
+      setVideos(response);
+    }
+
+    foo();
+  }, []);
+
+
   if (!profile) return null;
 
   return (
@@ -68,6 +80,17 @@ export default function Profile() {
       <div className="pt-3">
         <button onClick={followUser} className="bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">Follow User</button>
       </div>
+      {videos.map((foo, i) => {
+        return (
+          <div key={foo.metadata.keyvalues.pullRequestId} className="flex p-4">
+            <button onClick={() => router.push(`/pullRequest/${foo.metadata.keyvalues.pullRequestId}`)}>
+              <VideoMini cid={foo.ipfs_pin_hash} />
+            </button>
+          </div>
+        );
+      }
+      )
+      }
     </div>
   );
 }
