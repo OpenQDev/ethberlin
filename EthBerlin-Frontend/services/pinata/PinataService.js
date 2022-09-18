@@ -13,7 +13,7 @@ class PinataService {
 						Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
 					}
 				});
-				console.log(res);
+				console.log("pinata service res: ", res);
 				resolve(res.data.IpfsHash);
 			} catch (error) {
 				reject(error);

@@ -26,7 +26,7 @@ export default function Upload() {
     async function check() {
       try {
         const res = await appState.pinataService.fetchVideo(pullRequestId);
-        console.log(res);
+        console.log("res: ", res);
         setCid(res);
       } catch (error) {
         console.log(error);
